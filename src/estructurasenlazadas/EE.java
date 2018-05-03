@@ -65,7 +65,7 @@ public class EE<T> implements Iterable<T> {
                 nuevo.setLink(start);
                 start=nuevo;
             }else{
-                Node<T> ant=start,act=start;
+                Node<T> ant=start,act=start.getLink();
                 while(act!=null && !act.getDato().equals(sig)){
                     ant=act;
                     act=act.getLink();
