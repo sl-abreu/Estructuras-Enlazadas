@@ -49,6 +49,34 @@ public class EE<T> implements Iterable<T> {
             nuevo.setLink(aux.getLink());
             aux.setLink(nuevo);
             res=true;
+            if(aux==end)
+                end=nuevo;
+        }
+        return res;
+    }
+    public boolean addBefore(T dato, T sig){
+        boolean res=false;
+                
+        if(dato!=null && sig!=null && !isEmpty()){
+            Node<T> nuevo;
+            if(start.getDato().equals(sig)){
+                res=true;
+                nuevo=new Node(dato);
+                nuevo.setLink(start);
+                start=nuevo;
+            }else{
+                Node<T> ant=start,act=start;
+                while(act!=null && !act.getDato().equals(sig)){
+                    ant=act;
+                    act=act.getLink();
+                }
+                if(act!=null){
+                    res=true;
+                    nuevo=new Node(dato);
+                    ant.setLink(nuevo);
+                    nuevo.setLink(act);
+                }
+            }
         }
         return res;
     }
@@ -82,6 +110,27 @@ public class EE<T> implements Iterable<T> {
             else{
                 end=null;
                 start=null;
+            }
+        }
+        return res;
+    }
+    public T removeBefore(T sig){
+        T res=null;
+        
+        if(sig!=null && !isEmpty() && start!=end && !start.getDato().equals(sig)){
+            if(start.getLink().getDato().equals(sig))
+                res=removeFirst();
+            else{
+                Node<T> ap=start;
+                while(ap.getLink().getLink()!=null && !ap.getLink().getLink().getDato().equals(sig))
+                    ap=ap.getLink();
+                if(ap.getLink().getLink()!=null){
+                    Node<T> temp=ap.getLink();
+                    
+                    ap.setLink(temp.getLink());
+                    temp.setLink(null);
+                    res=temp.getDato();
+                }
             }
         }
         return res;
