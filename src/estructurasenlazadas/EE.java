@@ -20,6 +20,18 @@ public class EE<T> implements Iterable<T> {
         end=null;
     }
     
+    public T getDato(int pos){
+        Node<T> ap=start;
+        int cont=0;
+        
+        while(ap!=null && cont<pos){
+            ap=ap.getLink();
+            cont++;
+        }
+        if(ap!=null)
+            return ap.getDato();
+        throw new NullPointerException();
+    }
     public boolean isEmpty(){
         return start==null;
     }
