@@ -5,6 +5,7 @@
  */
 package estructurasenlazadas;
 
+import auxiliares.ConjuntoA;
 import java.util.Iterator;
 
 /**
@@ -169,6 +170,77 @@ public class EE<T> implements Iterable<T> {
             }
         }
         return res;
+    }
+    
+    public int removeAllDuplicatesR(){
+        int res=0;
+        Node<T> nodo;
+        if(!isEmpty()){
+            nodo=start;
+            while(nodo.getLink()!=null){
+                res=remDup(nodo,nodo.getDato(),res);
+                nodo=nodo.getLink();
+            }
+        }
+        return res;
+    }
+    private int remDup(Node<T> nodo,T dato,int res){
+        if(nodo.getLink()!=null){
+            if(nodo.getLink().getDato().equals(dato)){
+                nodo.setLink(nodo.getLink().getLink());
+                res++;
+            }
+            return remDup(nodo.getLink(),dato,res);
+        }
+        return res;
+    }
+    
+    public int removeAllDuplicates(){
+        ConjuntoA<T> bin;
+        int cont=0;
+        Node<T> ap;
+        
+        if(!isEmpty() && start!=end){
+            ap=start;
+            bin=new ConjuntoA();
+            bin.agrega(start.getDato());
+            
+            while(ap.getLink()!=null){
+                if(!bin.agrega(ap.getLink().getDato())){
+                    Node<T> temp=ap.getLink();
+                    
+                    ap.setLink(temp.getLink());
+                    temp.setLink(null);
+                    cont++;
+                }else
+                    ap=ap.getLink();
+            }
+        }
+        return cont;
+    }
+    
+    public EE<T> merge(EE<T> otro){
+        if(otro!=null && !otro.isEmpty() && !isEmpty()){
+            Node<T> ap1=start,ap2=otro.start,temp=new Node();
+            int ref=0;
+            
+            while(ap1!=null && ap2!=null){
+                if(ref%2==0){
+                    temp=ap1;
+                    ap1=ap1.getLink();
+                    temp.setLink(ap2);
+                }else{
+                    temp=ap2;
+                    ap2=ap2.getLink();
+                    temp.setLink(ap1);
+                }
+                ref++;
+            }
+            if(ap1==null)
+                this.end=otro.end;
+            return this;
+        }
+        throw new NullPointerException();
     }
     
     public T search(T dato){

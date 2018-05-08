@@ -15,14 +15,17 @@ public class EstructurasEnlazadas {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        EE<String> nombs=new EE();
+        EE<Integer> n=new EE(),n2=new EE();
         
-        nombs.addFirst("Juan");
-        nombs.addFirst("Pedro");
-        nombs.addLast("María");
-        System.out.println(nombs.toString());
-        System.out.println(nombs.removeFirst());
-        System.out.println(nombs.toString());
+        for(int i=1;i<10;i+=2)
+            n.addLast(i);
+        for(int j=2;j<17;j+=2)
+            n2.addLast(j);
+        System.out.println(n.toString());
+        System.out.println(n2.toString());
+        System.out.println(n.merge(n2));
+        System.out.println(n.toString());
+        System.out.println(n2.toString());
     }
     
 }
