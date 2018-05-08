@@ -147,11 +147,29 @@ public class EE<T> implements Iterable<T> {
         }
         return res;
     }
-//    public T remove(T dato){
-//        Node<T> temp;
-//        
-//        
-//    }
+    public T remove(T dato){
+        T res=null;
+        
+        if(dato!=null && !isEmpty()){
+            if(start==end && start.getDato().equals(dato)){
+                res=start.getDato();
+                start=null;
+                end=null;
+            }else{
+                Node<T> ap=start;
+                while(ap.getLink()!=null && !ap.getLink().getDato().equals(dato))
+                    ap=ap.getLink();
+                if(ap.getLink()!=null){
+                    Node<T> temp=ap.getLink();
+                    
+                    ap.setLink(temp.getLink());
+                    temp.setLink(null);
+                    res=temp.getDato();
+                }
+            }
+        }
+        return res;
+    }
     
     public T search(T dato){
         Iterator<T> it=iterator();
